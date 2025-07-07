@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   Card,
   CardBody,
   CardHeader,
@@ -10,8 +11,6 @@ import {
 } from '@chakra-ui/react'
 import { Link } from '@saas-ui/react'
 import { FaTwitter } from 'react-icons/fa'
-
-import { BackgroundGradient } from '#components/gradients/background-gradient'
 
 export interface TestimonialProps extends CardProps {
   name: string
@@ -31,20 +30,19 @@ export const Testimonial = ({
 }: TestimonialProps) => {
   return (
     <Card position="relative" {...rest}>
-      <CardHeader display="flex" flexDirection="row" alignItems="center">
-        <Avatar name={name} src={avatar} size="sm" bg="transparent" />
-        <Stack spacing="1" ms="4">
-          <Heading size="sm">{name}</Heading>
-          <Text color="muted" size="xs">
+      <CardHeader>
+        <Stack align="center" spacing={2} textAlign="center" w="full">
+          <Avatar name={name} src={avatar} size="xl" />
+          <Heading size="md">{name}</Heading>
+          <Text color="muted" fontSize="sm">
             {description}
           </Text>
         </Stack>
       </CardHeader>
-      <CardBody>
-        {children}
 
+      <CardBody position="relative">
         {href && (
-          <Link href={href} position="absolute" top="4" right="4">
+          <Link href={href} position="absolute" top="0" right="0">
             <FaTwitter />
           </Link>
         )}

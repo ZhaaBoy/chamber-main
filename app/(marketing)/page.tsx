@@ -39,6 +39,7 @@ import {
 } from 'react-icons/fi'
 
 import * as React from 'react'
+import { useEffect } from 'react'
 
 import { ButtonLink } from '#components/button-link/button-link'
 import { Faq } from '#components/faq'
@@ -57,6 +58,7 @@ import { Testimonial, Testimonials } from '#components/testimonials'
 import { Em } from '#components/typography'
 import faq from '#data/faq'
 import pricing from '#data/pricing'
+import testimonialData from '#data/testimonials'
 import testimonials from '#data/testimonials'
 
 export const meta: Metadata = {
@@ -392,32 +394,23 @@ const FeaturesSection = () => {
 }
 
 const TestimonialsSection = () => {
-  const columns = React.useMemo(() => {
-    return testimonials.items.reduce<Array<typeof testimonials.items>>(
-      (columns, t, i) => {
-        columns[i % 3].push(t)
-
-        return columns
-      },
-      [[], [], []],
-    )
+  useEffect(() => {
+    const el = document.getElementById('scroll-wrapper')
+    el?.scrollTo({ left: 500, behavior: 'smooth' })
   }, [])
 
   return (
-    <Testimonials
-      title={testimonials.title}
-      columns={[1, 2, 3]}
-      innerWidth="container.xl"
-    >
-      <>
-        {columns.map((column, i) => (
-          <Stack key={i} spacing="8">
-            {column.map((t, i) => (
-              <Testimonial key={i} {...t} />
-            ))}
-          </Stack>
-        ))}
-      </>
+    <Testimonials title="Developer of Chamber Consultan">
+      {testimonialData.items.map((item, idx) => (
+        <Testimonial
+          key={idx}
+          name={item.name}
+          avatar={item.avatar}
+          description={item.description}
+        >
+          {item.children}
+        </Testimonial>
+      ))}
     </Testimonials>
   )
 }
